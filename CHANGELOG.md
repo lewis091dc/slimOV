@@ -1,5 +1,14 @@
 # Wijzigingen
 
+## 0.3.0 — 2026-11-12
+
+- Eigen halte-/ritpagina en schermvullende kaart, ook zonder voertuig-GPS.
+- Ideeën 1–20: vaste reizen, geschiedenis, planneropties, vergelijken, via, eerste/laatste, voorgrondherinneringen, actieve reis, overstapmarge, perronwijzigingen, delen, scherm-aan en kaart-/lijnfavorieten.
+- Strengere ritkoppeling, antwoordvolgorde, realtimebetrouwbaarheid, kaartfilters en UI-correcties.
+- 36 JS-tests, 11 decodercontroles en echte plannerproeven. Native gedrag op de OnePlus nog niet geverifieerd.
+- Geen achtergrondbewaking; zie docs/testgids-0.3.0.md voor exacte grenzen.
+
+
 ## 0.2.0 — 12 november 2026
 
 - Route en tussenhaltes worden automatisch geladen bij het volgen van een voertuig.

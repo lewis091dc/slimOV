@@ -1,5 +1,12 @@
 # SlimOV
 
+## Testversie 0.3.0
+
+Eigen ritpagina met alle haltes, kaart in schermvullende stand en uitbreidingsronde 1 (ideeën 1–20). Zie [testgids en functiestatus](docs/testgids-0.3.0.md). Uitstapherinnering en overstapbewaking werken in deze testversie op de voorgrond; Android-achtergrondbewaking is niet gebouwd. Nog geen V1.
+
+Tests: `node --test tests/*.test.cjs` (36 tests). Bouwinstructies hieronder blijven geldig.
+
+
 Persoonlijke Android-app voor Nederlands openbaar vervoer. Het ontwerp gebruikt paarse accenten en rustige lichte/donkere kaarten, geïnspireerd op de door de gebruiker aangeleverde SlimLearn-screenshots. Dit project is onafhankelijk van SlimLearn, OVinfo, 9292 en vervoerders.
 
 ## Nieuw in 0.2.0
@@ -24,8 +31,8 @@ Dit is een afleiding uit de gemelde positie. Bij posities ouder dan twee minuten
 
 ## Grenzen van deze versie
 
-- Dit is versie 0.2.0, een persoonlijke testversie. De APK is gebouwd en de ondertekening gecontroleerd, maar is nog niet op het fysieke OnePlus-toestel getest. Dezelfde ondertekening als 0.1.0 en een hogere versionCode maken een normale update mogelijk.
-- De broncode moet openbaar gepubliceerd zijn voordat de Transitous-integratie buiten lichte prototypetests structureel wordt gebruikt. Zie hun voorwaarden: https://transitous.org/api/ . Publicatie vereist geen betaalde dienst.
+- Dit is versie 0.3.0, een persoonlijke testversie. De APK is gebouwd en de ondertekening gecontroleerd, maar is nog niet op het fysieke OnePlus-toestel getest. Dezelfde ondertekening als 0.1.0 en een hogere versionCode maken een normale update mogelijk.
+- De broncode is openbaar gepubliceerd op https://github.com/lewis091dc/slimOV voor de Transitous-integratie. Zie hun voorwaarden: https://transitous.org/api/ . Publicatie vereist geen betaalde dienst.
 - Een dataleeftijd onder 30 seconden is niet gegarandeerd. Het landelijke voertuigbestand verandert ongeveer eens per minuut. De rechtstreekse KV6-feed kan sneller zijn, maar de vervoerder bepaalt wanneer een melding verschijnt. De app toont de leeftijd per voertuig.
 - De landelijke voertuigfeed is hoofdzakelijk bus/tram/metro. Een volledige NS-treinenkaart, actuele treinstelnummers en treinmaterieel zijn niet gekoppeld in deze versie. Treinreisadviezen en treinvertrektijden werken via de reisplannerbron.
 - Niet elk busmerk/model is bekend. Alleen een bevestigde voertuigkoppeling of expliciete eigen invoer levert type-informatie op. Een NeTEx-typeomschrijving kan algemener zijn dan een exact commercieel model.
