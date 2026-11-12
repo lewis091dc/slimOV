@@ -1,0 +1,13 @@
+build/
+private/
+*.p12
+*.jks
+*.keystore
+signing-password.txt
+local.properties
+node_modules/
+assets/catalog.js
+assets/fleet.js
+assets/leaflet.js
+assets/leaflet.css
+libs/*.jar
