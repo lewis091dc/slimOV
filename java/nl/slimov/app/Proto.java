@@ -28,7 +28,7 @@ public final class Proto {
  public static JSONObject vehicles(byte[] data)throws Exception {
   Message feed=new Message(data);JSONArray out=new JSONArray();
   for(Object raw:feed.all(2)){Message entity=new Message((byte[])raw);if(!entity.has(4)||entity.num(2)==1)continue;Message v=entity.msg(4),p=v.msg(2),t=v.msg(1),desc=v.msg(8);double lat=p.decimal(1),lon=p.decimal(2);if(lat<50.7||lat>53.7||lon<3.2||lon>7.3)continue;
-   JSONObject x=new JSONObject();x.put("id",entity.str(1));x.put("trip",t.str(1));x.put("route",t.str(5));x.put("startDate",t.str(3));x.put("startTime",t.str(2));x.put("direction",t.has(6)?t.num(6):-1);x.put("lat",lat);x.put("lon",lon);x.put("timestamp",v.num(5));x.put("number",desc.str(2).isEmpty()?desc.str(1):desc.str(2));x.put("realtimeId",t.msg(1003).str(1));x.put("stop",v.str(7));if(v.msg(1003).has(1))x.put("delay",(int)v.msg(1003).num(1));out.put(x);
+   JSONObject x=new JSONObject();x.put("id",entity.str(1));x.put("trip",t.str(1));x.put("route",t.str(5));x.put("startDate",t.str(3));x.put("startTime",t.str(2));x.put("direction",t.has(6)?t.num(6):-1);x.put("lat",lat);x.put("lon",lon);x.put("timestamp",v.num(5));x.put("number",desc.str(2).isEmpty()?desc.str(1):desc.str(2));x.put("realtimeId",t.msg(1003).str(1));x.put("stop",v.str(7));if(v.has(3))x.put("stopSequence",v.num(3));if(v.has(4))x.put("stopStatus",v.num(4));if(v.msg(1003).has(1))x.put("delay",(int)v.msg(1003).num(1));out.put(x);
   }
   return new JSONObject().put("timestamp",feed.msg(1).num(3)).put("vehicles",out);
  }

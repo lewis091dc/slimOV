@@ -2,6 +2,14 @@
 
 Persoonlijke Android-app voor Nederlands openbaar vervoer. Het ontwerp gebruikt paarse accenten en rustige lichte/donkere kaarten, geïnspireerd op de door de gebruiker aangeleverde SlimLearn-screenshots. Dit project is onafhankelijk van SlimLearn, OVinfo, 9292 en vervoerders.
 
+## Nieuw in 0.2.0
+
+Bij **Volg live** worden routegeometrie en tussenhaltes automatisch geladen. De kaart toont genummerde haltes en benadrukt de halte bij de bus en de volgende halte. De camera houdt het voertuig en de aangrenzende haltes samen in beeld. Verslepen pauzeert het centreren; **Centreer bus** schakelt het weer in. **Overzicht** toont de hele route.
+
+Een kaartje benoemt de vorige/volgende halte en de leeftijd van de voertuigpositie. Het gevolgde traject is grijs, het resterende traject paars, wanneer de positie betrouwbaar op de bekende route kan worden geplaatst. **Alle haltes** opent een lijst met beschikbare perrons/tijden en voortgang, direct bij de bus. Een lokale berekening en korte routecache beperken extra dataverbruik.
+
+Dit is een afleiding uit de gemelde positie. Bij posities ouder dan twee minuten, meer dan ongeveer 180 meter naast de route, ontbrekende geometrie of onvoldoende data wordt geen volgende halte als zeker getoond. “Voorbij volgens positie” bevestigt niet dat de bus daadwerkelijk is gestopt. Een schematische verbinding tussen haltes wordt expliciet als schematisch aangeduid.
+
 ## Wat werkt
 
 - Reisadvies van halte, station, adres of huidige locatie naar een bestemming, met vertrek-/aankomsttijd, overstappen en routegeometrie via Transitous/MOTIS.
@@ -16,7 +24,7 @@ Persoonlijke Android-app voor Nederlands openbaar vervoer. Het ontwerp gebruikt 
 
 ## Grenzen van deze versie
 
-- Dit is versie 0.1.0, een persoonlijke testversie. De APK is gebouwd en de ondertekening gecontroleerd, maar is nog niet op het fysieke OnePlus-toestel getest.
+- Dit is versie 0.2.0, een persoonlijke testversie. De APK is gebouwd en de ondertekening gecontroleerd, maar is nog niet op het fysieke OnePlus-toestel getest. Dezelfde ondertekening als 0.1.0 en een hogere versionCode maken een normale update mogelijk.
 - De broncode moet openbaar gepubliceerd zijn voordat de Transitous-integratie buiten lichte prototypetests structureel wordt gebruikt. Zie hun voorwaarden: https://transitous.org/api/ . Publicatie vereist geen betaalde dienst.
 - Een dataleeftijd onder 30 seconden is niet gegarandeerd. Het landelijke voertuigbestand verandert ongeveer eens per minuut. De rechtstreekse KV6-feed kan sneller zijn, maar de vervoerder bepaalt wanneer een melding verschijnt. De app toont de leeftijd per voertuig.
 - De landelijke voertuigfeed is hoofdzakelijk bus/tram/metro. Een volledige NS-treinenkaart, actuele treinstelnummers en treinmaterieel zijn niet gekoppeld in deze versie. Treinreisadviezen en treinvertrektijden werken via de reisplannerbron.
@@ -61,6 +69,8 @@ De browserpreview test echte reisadviezen, vertrekken en kaartdata. De ZeroMQ-fe
 ## Verificatie
 
 Zie `tests/DecoderTest.java` en `tests/StreamIntegration.java`. De JVM-adapter onder `tests/android/` is uitsluitend een testadapter en wordt nooit in de APK opgenomen. De decodertests controleren echte protobuf-feeds, negatieve vertraging, ongeldige lengtes, gzip/namespaced KV6, voertuignummers en RD→WGS84. De integratietest ontvangt echte GVB-posities en controleert dat ontvangen stopt na het sluiten van de verbinding.
+
+`node --test tests/route-model.test.cjs` controleert de afleiding van volgende haltes, huidige/eindhalte, ontbrekende/verouderde/afwijkende posities, vervallen haltes, ringlijnen, routekruisingen en het splitsen van de geometrie. De tussenhaltes en routegeometrie komen van dezelfde rit, niet van de geografisch dichtstbijzijnde willekeurige halte.
 
 De mobiele browsercontrole omvat haltezoeken, favoriet opslaan, filteren op lijn/perron, reisadvies Utrecht–Amsterdam, reisdetails en routeweergave, meldingen doorzoeken en lichte/donkere weergave. Dat is geen vervanging voor een test op een echte Android-telefoon.
 
