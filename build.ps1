@@ -30,7 +30,18 @@ if (Test-Path -LiteralPath $classJar) { Remove-Item -LiteralPath $classJar }
 Run-Checked (Join-Path $BuildTools 'd8.bat') @('--lib',$androidJar,'--min-api','31','--output',$dex,(Join-Path $build 'classes.jar'),$JeroMqJar)
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $zip = [IO.Compression.ZipFile]::Open((Join-Path $build 'unsigned.apk'),[IO.Compression.ZipArchiveMode]::Update)
-try { foreach ($file in Get-ChildItem -LiteralPath $dex -Filter '*.dex') { $old=$zip.GetEntry($file.Name); if ($old) { $old.Delete() }; [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip,$file.FullName,$file.Name,[IO.Compression.CompressionLevel]::Optimal) | Out-Null } } finally { $zip.Dispose() }
+try {
+    # aapt2 on Windows can preserve backslashes in nested asset entry names.
+    foreach ($entry in @($zip.Entries | Where-Object { $_.FullName.Contains('\') })) {
+        $normalizedName=$entry.FullName.Replace('\','/')
+        $buffer=[IO.MemoryStream]::new()
+        $stream=$entry.Open(); try { $stream.CopyTo($buffer) } finally { $stream.Dispose() }
+        $entry.Delete()
+        $replacement=$zip.CreateEntry($normalizedName,[IO.Compression.CompressionLevel]::Optimal)
+        $target=$replacement.Open(); try { $buffer.Position=0; $buffer.CopyTo($target) } finally { $target.Dispose(); $buffer.Dispose() }
+    }
+    foreach ($file in Get-ChildItem -LiteralPath $dex -Filter '*.dex') { $old=$zip.GetEntry($file.Name); if ($old) { $old.Delete() }; [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip,$file.FullName,$file.Name,[IO.Compression.CompressionLevel]::Optimal) | Out-Null }
+} finally { $zip.Dispose() }
 Run-Checked (Join-Path $BuildTools 'zipalign.exe') @('-f','-p','4',(Join-Path $build 'unsigned.apk'),(Join-Path $build 'aligned.apk'))
 $private = Join-Path $PSScriptRoot '..\private'
 New-Item -ItemType Directory -Force -Path $private | Out-Null
