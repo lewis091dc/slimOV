@@ -11,3 +11,6 @@ assets/fleet.js
 assets/leaflet.js
 assets/leaflet.css
 libs/*.jar
+
+assets/districts.js
+assets/route-stops.js

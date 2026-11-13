@@ -1,5 +1,18 @@
 # Wijzigingen
 
+## 0.4.0 — 2026-11-13
+
+- Ideeën 21–40, met bronafhankelijke grenzen voor omleidingsgeometrie en NS-materieel.
+- Grote aparte kaartpagina, originele SVG-voertuigen, kleinschalig gecentreerd routevoorbeeld en blijvende kaartknop op de ritpagina.
+- Bevestigde haltebezoeken tegenover GPS-passages en onbekende bezoeken; eerdere haltes uitklapbaar en lokale ritgeschiedenis.
+- Favorietenborden, beheer/export/import, aankomsten, bewaarde filters, eigen locatie tijdens gebruik.
+- Alert-stop-ID-parser gecorrigeerd; oorzaken, perioden, scopes en configureerbare periodieke meldingen.
+- Opt-in foreground-datasyncdienst voor reisinfo en uitstapmelding zonder eigen achtergrond-GPS; één gedeelde NDOV-verbinding.
+- Optionele NS API-sleutel via lokale Keystore; echte API-dekking en Android-achtergrondgedrag nog te testen.
+- Planner vertaalt stopareas naar halte-ID’s; kunstmatige toegangswandeling en onnodige directe-reisvergelijking opgelost.
+- 63 JS-tests, 12 decodercontroles, 10 native modelcontroles; browsercontrole op mobiel formaat.
+
+
 ## 0.3.0 — 2026-11-12
 
 - Eigen halte-/ritpagina en schermvullende kaart, ook zonder voertuig-GPS.

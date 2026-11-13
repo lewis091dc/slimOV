@@ -28,18 +28,17 @@ public final class Proto {
  public static JSONObject vehicles(byte[] data)throws Exception {
   Message feed=new Message(data);JSONArray out=new JSONArray();
   for(Object raw:feed.all(2)){Message entity=new Message((byte[])raw);if(!entity.has(4)||entity.num(2)==1)continue;Message v=entity.msg(4),p=v.msg(2),t=v.msg(1),desc=v.msg(8);double lat=p.decimal(1),lon=p.decimal(2);if(lat<50.7||lat>53.7||lon<3.2||lon>7.3)continue;
-   JSONObject x=new JSONObject();x.put("id",entity.str(1));x.put("trip",t.str(1));x.put("route",t.str(5));x.put("startDate",t.str(3));x.put("startTime",t.str(2));x.put("direction",t.has(6)?t.num(6):-1);x.put("lat",lat);x.put("lon",lon);x.put("timestamp",v.num(5));x.put("number",desc.str(2).isEmpty()?desc.str(1):desc.str(2));x.put("realtimeId",t.msg(1003).str(1));x.put("stop",v.str(7));if(v.has(3))x.put("stopSequence",v.num(3));if(v.has(4))x.put("stopStatus",v.num(4));if(v.msg(1003).has(1))x.put("delay",(int)v.msg(1003).num(1));out.put(x);
+   JSONObject x=new JSONObject();x.put("id",entity.str(1));x.put("trip",t.str(1));x.put("route",t.str(5));x.put("startDate",t.str(3));x.put("startTime",t.str(2));x.put("direction",t.has(6)?t.num(6):-1);x.put("lat",lat);x.put("lon",lon);if(p.has(3))x.put("bearing",p.decimal(3));if(p.has(5))x.put("speed",p.decimal(5));x.put("timestamp",v.num(5));x.put("number",desc.str(2).isEmpty()?desc.str(1):desc.str(2));x.put("realtimeId",t.msg(1003).str(1));x.put("stop",v.str(7));if(v.has(3))x.put("stopSequence",v.num(3));if(v.has(4))x.put("stopStatus",v.num(4));if(v.msg(1003).has(1))x.put("delay",(int)v.msg(1003).num(1));out.put(x);
   }
   return new JSONObject().put("timestamp",feed.msg(1).num(3)).put("vehicles",out);
  }
  private static String translated(Message m)throws Exception {String first="";for(Object raw:m.all(1)){Message t=new Message((byte[])raw);if(first.isEmpty())first=t.str(1);if(t.str(2).startsWith("nl"))return t.str(1);}return first;}
  public static JSONObject alerts(byte[] data)throws Exception {
   Message feed=new Message(data);JSONArray out=new JSONArray();long now=System.currentTimeMillis()/1000;
-  for(Object raw:feed.all(2)){Message e=new Message((byte[])raw);if(!e.has(5)||e.num(2)==1)continue;Message a=e.msg(5);JSONArray routes=new JSONArray(),stops=new JSONArray(),agencies=new JSONArray();boolean active=a.all(1).isEmpty();
-   for(Object r:a.all(1)){Message period=new Message((byte[])r);if((!period.has(1)||period.num(1)<=now)&&(!period.has(2)||period.num(2)>=now))active=true;}
-   if(!active)continue;
-   for(Object r:a.all(5)){Message selector=new Message((byte[])r);if(!selector.str(2).isEmpty())routes.put(selector.str(2));if(!selector.str(4).isEmpty())stops.put(selector.str(4));if(!selector.str(1).isEmpty())agencies.put(selector.str(1));}
-   out.put(new JSONObject().put("id",e.str(1)).put("title",translated(a.msg(10))).put("description",translated(a.msg(11))).put("url",translated(a.msg(8))).put("effect",a.num(7)).put("routes",routes).put("stops",stops).put("agencies",agencies));
+  for(Object raw:feed.all(2)){Message e=new Message((byte[])raw);if(!e.has(5)||e.num(2)==1)continue;Message a=e.msg(5);JSONArray routes=new JSONArray(),stops=new JSONArray(),agencies=new JSONArray(),periods=new JSONArray();
+   for(Object r:a.all(1)){Message period=new Message((byte[])r);periods.put(new JSONObject().put("start",period.num(1)).put("end",period.num(2)));}
+   for(Object r:a.all(5)){Message selector=new Message((byte[])r);if(!selector.str(2).isEmpty())routes.put(selector.str(2));if(!selector.str(5).isEmpty())stops.put(selector.str(5));if(!selector.str(1).isEmpty())agencies.put(selector.str(1));}
+   out.put(new JSONObject().put("id",e.str(1)).put("title",translated(a.msg(10))).put("description",translated(a.msg(11))).put("url",translated(a.msg(8))).put("effect",a.num(7)).put("cause",a.num(6)).put("periods",periods).put("routes",routes).put("stops",stops).put("agencies",agencies));
   }
   return new JSONObject().put("timestamp",feed.msg(1).num(3)).put("alerts",out);
  }

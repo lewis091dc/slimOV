@@ -1,11 +1,10 @@
 # SlimOV
 
-## Testversie 0.3.0
+## Testversie 0.4.0
 
-Eigen ritpagina met alle haltes, kaart in schermvullende stand en uitbreidingsronde 1 (ideeën 1–20). Zie [testgids en functiestatus](docs/testgids-0.3.0.md). Uitstapherinnering en overstapbewaking werken in deze testversie op de voorgrond; Android-achtergrondbewaking is niet gebouwd. Nog geen V1.
+Ronde 2 met ideeën 21–40: eigen grote kaartpagina, voertuigtekeningen, duidelijke haltebezoeken, lokale ritgeschiedenis, favoriete vertrekborden, aankomsten, betere verstoringen en optionele Android-achtergrondbewaking. NS-posities en treinstellen hebben een optionele lokale API-sleutel nodig en zijn nog niet met die sleutel getest. Zie [testgids en exacte functiestatus](docs/testgids-0.4.0.md). Nog geen V1; ronde 41–60 wacht op gebruikersfeedback.
 
-Tests: `node --test tests/*.test.cjs` (36 tests). Bouwinstructies hieronder blijven geldig.
-
+Tests: `node --test tests/*.test.cjs` (63 tests); daarnaast 12 decodercontroles en 10 JVM-controles van bewakingslogica. Android-toestemmingen en achtergrondgedrag moeten nog op het echte toestel worden getest.
 
 Persoonlijke Android-app voor Nederlands openbaar vervoer. Het ontwerp gebruikt paarse accenten en rustige lichte/donkere kaarten, geïnspireerd op de door de gebruiker aangeleverde SlimLearn-screenshots. Dit project is onafhankelijk van SlimLearn, OVinfo, 9292 en vervoerders.
 
