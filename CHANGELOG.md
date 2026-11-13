@@ -1,5 +1,15 @@
 # Wijzigingen
 
+## 0.4.1 — 2026-11-13
+
+- Directe NS-ritkoppeling vanuit de kaart met Reisinformatie API, stationvolgorde en perrons.
+- Materieeltype, treinstelnummer en aantal bakken uit officiële Virtual Train-velden; ook direct in het voertuigscherm.
+- SpoorKaart-geometrie met veilige schematische fallback, controle op ritnummer/rijdag en behoud van geldige koppelingen bij nieuwe posities.
+- Blijvende NS-status, verbindingstest en verversen van NS-posities via de kaartknop.
+- 74 JS-tests, 11 NS-ritadaptertests en 12 native bewakings-/positietests. Mobiele UI-controle met gemarkeerde testgegevens.
+- Zie docs/testgids-0.4.1.md voor bronbeperkingen en de nog noodzakelijke telefoontest.
+
+
 ## 0.4.0 — 2026-11-13
 
 - Ideeën 21–40, met bronafhankelijke grenzen voor omleidingsgeometrie en NS-materieel.

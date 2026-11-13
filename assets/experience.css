@@ -4,3 +4,5 @@ header{height:56px}.brand{font-size:24px}main{height:calc(100dvh - 126px)}nav{he
 
 .route-active .map-legend,.map-fullscreen .map-legend{top:auto;bottom:8px}.map-fullscreen:not(.route-active) .map-controls{bottom:50px}#tripFleet04{display:flex;align-items:center;gap:12px}#tripFleet04>.vehicle-art{width:120px!important;height:46px!important;flex-shrink:0}.interpolating .vehicle-marker:after{content:"≈";position:absolute;right:-7px;bottom:-5px;background:var(--card);color:var(--purple);border:1px solid var(--line);border-radius:8px;font-size:12px;padding:0 3px}
 .map-fullscreen .route-active .map-legend{top:auto;bottom:8px;height:auto}.map-fullscreen #mapWrap.route-active .map-controls{bottom:245px}.map-fullscreen #mapWrap:not(.route-active) .map-controls{bottom:50px}
+
+.ns-map-status{position:absolute;left:12px;right:65px;top:149px;z-index:650;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:10px;min-height:34px;text-align:left;box-shadow:0 2px 8px #0001}.map-fullscreen .ns-map-status{top:175px}.ns-map-status:empty{display:none}
